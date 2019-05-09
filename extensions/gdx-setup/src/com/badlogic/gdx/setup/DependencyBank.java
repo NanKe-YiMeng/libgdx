@@ -22,25 +22,27 @@ import java.util.HashMap;
 public class DependencyBank {
 
 	//Versions
-	static String libgdxVersion = "1.9.6";
+	static String libgdxVersion = "1.9.9";
 	//Temporary snapshot version, we need a more dynamic solution for pointing to the latest nightly
-	static String libgdxNightlyVersion = "1.9.7-SNAPSHOT";
-	static String roboVMVersion = "2.3.1";
-	static String moeVersion = "1.3.6";
-	static String buildToolsVersion = "23.0.1";
-	static String androidAPILevel = "20";
+	static String libgdxNightlyVersion = "1.9.10-SNAPSHOT";
+	static String roboVMVersion = "2.3.6";
+	static String moeVersion = "1.4.0";
+	static String buildToolsVersion = "28.0.3";
+	static String androidAPILevel = "27";
 	static String gwtVersion = "2.8.0";
 
 	//Repositories
 	static String mavenLocal = "mavenLocal()";
 	static String mavenCentral = "mavenCentral()";
 	static String jCenter = "jcenter()";
+	static String google = "google()";
+	static String gradlePlugins = "https://plugins.gradle.org/m2/";
 	static String libGDXSnapshotsUrl = "https://oss.sonatype.org/content/repositories/snapshots/";
 	static String libGDXReleaseUrl = "https://oss.sonatype.org/content/repositories/releases/";
 
 	//Project plugins
-	static String gwtPluginImport = "de.richsource.gradle.plugins:gwt-gradle-plugin:0.6";
-	static String androidPluginImport = "com.android.tools.build:gradle:2.2.0";
+	static String gwtPluginImport = "org.wisepersist:gwt-gradle-plugin:1.0.6";
+	static String androidPluginImport = "com.android.tools.build:gradle:3.2.0";
 	static String roboVMPluginImport = "com.mobidevelop.robovm:robovm-gradle-plugin:" + roboVMVersion;
 	static String moePluginImport = "org.multi-os-engine:moe-gradle:" + moeVersion;
 	
@@ -229,27 +231,25 @@ public class DependencyBank {
 
 
 	public enum ProjectType {
-		CORE("core", new String[]{"java"}),
-		DESKTOP("desktop", new String[]{"java"}),
-		ANDROID("android", new String[]{"android"}),
-		IOS("ios", new String[]{"java", "robovm"}),
-		IOSMOE("ios-moe", new String[] {"moe"}),
-		HTML("html", new String[]{"gwt", "war"});
+		CORE("core"),
+		DESKTOP("desktop"),
+		ANDROID("android"),
+		IOS("ios"),
+		IOSMOE("ios-moe"),
+		HTML("html");
 
 		private final String name;
-		private final String[] plugins;
 
-		ProjectType(String name, String plugins[]) {
+		ProjectType(String name) {
 			this.name = name;
-			this.plugins = plugins;
 		}
 
 		public String getName() {
 			return name;
 		}
 
-		public String[] getPlugins() {
-			return plugins;
+		public String[] getPlugins(Language sourceLanguage) {
+			return sourceLanguage.platformPlugins[ordinal()];
 		}
 	}
 

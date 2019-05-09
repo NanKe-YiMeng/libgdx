@@ -151,13 +151,13 @@ public class IOSApplication implements Application {
 		}
 
 		// setup libgdx
-		this.input = new IOSInput(this);
-		this.graphics = new IOSGraphics(scale, this, config, input, config.useGL30);
+		this.input = createInput();
+		this.graphics = createGraphics(scale);
 		Gdx.gl = Gdx.gl20 = graphics.gl20;
 		Gdx.gl30 = graphics.gl30;
 		this.files = new IOSFiles();
 		this.audio = new IOSAudio(config);
-		this.net = new IOSNet(this);
+		this.net = new IOSNet(this, config);
 
 		Gdx.files = this.files;
 		Gdx.graphics = this.graphics;
@@ -174,7 +174,15 @@ public class IOSApplication implements Application {
 		return true;
 	}
 
-	private int getIosVersion () {
+	protected IOSGraphics createGraphics(float scale) {
+		 return new IOSGraphics(scale, this, config, input, config.useGL30);
+	}
+
+	protected IOSInput createInput() {
+		 return new IOSInput(this);
+	}
+
+	int getIosVersion () {
 		String systemVersion = UIDevice.getCurrentDevice().getSystemVersion();
 		int version = Integer.parseInt(systemVersion.split("\\.")[0]);
 		return version;
@@ -274,7 +282,7 @@ public class IOSApplication implements Application {
 		Gdx.app.debug("IOSApplication", "paused");
 		graphics.makeCurrent();
 		graphics.pause();
-		Gdx.gl.glFlush();
+		Gdx.gl.glFinish();
 	}
 
 	final void willTerminate (UIApplication uiApp) {
@@ -287,7 +295,7 @@ public class IOSApplication implements Application {
 			}
 		}
 		listener.dispose();
-		Gdx.gl.glFlush();
+		Gdx.gl.glFinish();
 	}
 
 	@Override

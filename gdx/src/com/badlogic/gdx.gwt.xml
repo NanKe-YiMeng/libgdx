@@ -95,6 +95,7 @@
 	<!-- graphics/g2d -->
 		<include name="graphics/g2d/Animation.java"/>
 		<include name="graphics/g2d/Batch.java"/>
+		<include name="graphics/g2d/PolygonBatch.java"/>
 		<include name="graphics/g2d/BitmapFont.java"/>
 		<include name="graphics/g2d/BitmapFontCache.java"/>
 		<include name="graphics/g2d/CpuSpriteBatch.java"/>
@@ -245,6 +246,7 @@
 		<include name="graphics/glutils/GLFrameBuffer.java"/>
 		<include name="graphics/glutils/GLOnlyTextureData.java"/>
 		<include name="graphics/glutils/GLVersion.java"/>
+		<include name="graphics/glutils/HdpiMode.java"/>
 		<include name="graphics/glutils/HdpiUtils.java"/>
 		<include name="graphics/glutils/ImmediateModeRenderer.java"/>
 		<include name="graphics/glutils/ImmediateModeRenderer10.java"/>
@@ -265,8 +267,9 @@
 		<include name="graphics/glutils/VertexData.java"/>
 
 	<!-- graphics/profiling -->
-		<include name="graphics/profiling/GL20Profiler.java"/>
-		<include name="graphics/profiling/GL30Profiler.java"/>
+		<include name="graphics/profiling/GL20Interceptor.java"/>
+		<include name="graphics/profiling/GL30Interceptor.java"/>
+		<include name="graphics/profiling/GLInterceptor.java"/>
 		<include name="graphics/profiling/GLProfiler.java"/>
 		<include name="graphics/profiling/GLErrorListener.java"/> <!-- Emulated -->
 						
@@ -279,6 +282,7 @@
 		<include name="maps/ImageResolver.java"/>
 		<include name="maps/Map.java"/>
 		<include name="maps/MapLayer.java"/>
+		<include name="maps/MapGroupLayer.java"/>
 		<include name="maps/MapLayers.java"/>
 		<include name="maps/MapObject.java"/>
 		<include name="maps/MapObjects.java"/>

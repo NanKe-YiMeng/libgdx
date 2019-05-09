@@ -68,6 +68,7 @@ final public class LwjglInput implements Input {
 	int pressedKeys = 0;
 	boolean keyJustPressed = false;
 	boolean[] justPressedKeys = new boolean[256];
+	boolean[] justPressedButtons = new boolean[5];
 	boolean justTouched = false;
 	IntSet pressedButtons = new IntSet();
 	InputProcessor processor;
@@ -192,6 +193,8 @@ final public class LwjglInput implements Input {
 					}
 				});
 
+				dialog.setModal(true);
+				dialog.setAlwaysOnTop(true);
 				dialog.setVisible(true);
 				dialog.dispose();
 
@@ -206,6 +209,11 @@ final public class LwjglInput implements Input {
 
 			}
 		});
+	}
+
+	@Override
+	public int getMaxPointers () {
+		return 1;
 	}
 
 	public int getX () {
@@ -268,6 +276,16 @@ final public class LwjglInput implements Input {
 			return false;
 		else
 			return isTouched();
+	}
+
+	@Override
+	public float getPressure () {
+		return getPressure(0);
+	}
+
+	@Override
+	public float getPressure (int pointer) {
+		return isTouched(pointer) ? 1 : 0;
 	}
 
 	public boolean supportsMultitouch () {
@@ -793,7 +811,12 @@ final public class LwjglInput implements Input {
 	}
 
 	void updateMouse () {
-		justTouched = false;
+		if (justTouched) {
+			justTouched = false;
+			for (int i = 0; i < justPressedButtons.length; i++) {
+				justPressedButtons[i] = false;
+			}
+		}
 		if (Mouse.isCreated()) {
 			int events = 0;
 			while (Mouse.next()) {
@@ -826,6 +849,7 @@ final public class LwjglInput implements Input {
 					if (Mouse.getEventButtonState()) {
 						event.type = TouchEvent.TOUCH_DOWN;
 						pressedButtons.add(event.button);
+						justPressedButtons[event.button] = true;
 						justTouched = true;
 					} else {
 						event.type = TouchEvent.TOUCH_UP;
@@ -962,6 +986,12 @@ final public class LwjglInput implements Input {
 	@Override
 	public boolean isButtonPressed (int button) {
 		return Mouse.isButtonDown(toLwjglButton(button));
+	}
+
+	@Override
+	public boolean isButtonJustPressed(int button) {
+		if(button < 0 || button >= justPressedButtons.length) return false;
+		return justPressedButtons[button];
 	}
 
 	@Override

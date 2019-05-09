@@ -24,23 +24,18 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-/** <p>
+/**
+ * <p>
  * A Pixmap represents an image in memory. It has a width and height expressed in pixels as well as a {@link Format} specifying
  * the number and order of color components per pixel. Coordinates of pixels are specified with respect to the top left corner of
  * the image, with the x-axis pointing to the right and the y-axis pointing downwards.
- * </p>
- * 
  * <p>
- * By default all methods use blending. You can disable blending with {@link Pixmap#setBlending(Blending)}. The
- * {@link Pixmap#drawPixmap(Pixmap, int, int, int, int, int, int, int, int)} method will scale and stretch the source image to a
- * target image. There either nearest neighbour or bilinear filtering can be used.
- * </p>
- * 
+ * By default all methods use blending. You can disable blending with {@link Pixmap#setBlending(Blending)}, which may reduce
+ * blitting time by ~30%. The {@link Pixmap#drawPixmap(Pixmap, int, int, int, int, int, int, int, int)} method will scale and
+ * stretch the source image to a target image. There either nearest neighbour or bilinear filtering can be used.
  * <p>
  * A Pixmap stores its data in native heap memory. It is mandatory to call {@link Pixmap#dispose()} when the pixmap is no longer
  * needed, otherwise memory leaks will result
- * </p>
- * 
  * @author badlogicgames@gmail.com */
 public class Pixmap implements Disposable {
 	/** Different pixel formats.
@@ -93,6 +88,7 @@ public class Pixmap implements Disposable {
 	}
 
 	private Blending blending = Blending.SourceOver;
+	private Filter filter = Filter.BiLinear;
 
 	final Gdx2DPixmap pixmap;
 	int color = 0;
@@ -110,6 +106,7 @@ public class Pixmap implements Disposable {
 	 * {@link Pixmap#drawPixmap(Pixmap, int, int, int, int, int, int, int, int)}.
 	 * @param filter the filter. */
 	public void setFilter (Filter filter) {
+		this.filter = filter;
 		pixmap.setScale(filter == Filter.NearestNeighbour ? Gdx2DPixmap.GDX2D_SCALE_NEAREST : Gdx2DPixmap.GDX2D_SCALE_LINEAR);
 	}
 
@@ -316,6 +313,10 @@ public class Pixmap implements Disposable {
 		disposed = true;
 	}
 
+	public boolean isDisposed () {
+		return disposed;
+	}
+
 	/** Draws a pixel at the given location with the current color.
 	 * 
 	 * @param x the x-coordinate
@@ -372,5 +373,10 @@ public class Pixmap implements Disposable {
 	/** @return the currently set {@link Blending} */
 	public Blending getBlending () {
 		return blending;
+	}
+	
+	/** @return the currently set {@link Filter} */
+	public Filter getFilter (){
+		return filter;
 	}
 }

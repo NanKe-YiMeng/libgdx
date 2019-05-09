@@ -58,6 +58,7 @@ import com.badlogic.gdx.tests.g3d.FrameBufferCubemapTest;
 import com.badlogic.gdx.tests.g3d.HeightMapTest;
 import com.badlogic.gdx.tests.g3d.LightsTest;
 import com.badlogic.gdx.tests.g3d.MaterialTest;
+import com.badlogic.gdx.tests.g3d.MaterialEmissiveTest;
 import com.badlogic.gdx.tests.g3d.MeshBuilderTest;
 import com.badlogic.gdx.tests.g3d.ModelCacheTest;
 import com.badlogic.gdx.tests.g3d.ModelTest;
@@ -163,6 +164,7 @@ public class GdxTests {
 		LifeCycleTest.class,
 		LightsTest.class,
 		MaterialTest.class,
+		MaterialEmissiveTest.class,
 		MatrixJNITest.class,
 		MeshBuilderTest.class,
 		MeshShaderTest.class,
@@ -182,9 +184,11 @@ public class GdxTests {
 		ParticleControllerTest.class,
 		ParticleEmitterTest.class,
 		ParticleEmittersTest.class,
+		ParticleEmitterChangeSpriteTest.class,
 		PixelsPerInchTest.class,
 		PixmapBlendingTest.class,
 		PixmapPackerTest.class,
+		PixmapPackerIOTest.class,
 		PixmapTest.class,
 		PolygonRegionTest.class,
 		PolygonSpriteTest.class,
@@ -195,12 +199,14 @@ public class GdxTests {
 		ReflectionCorrectnessTest.class,
 		RotationTest.class,
 		RunnablePostTest.class,
-		StageDebugTest.class,
 		Scene2dTest.class,
 		ScrollPane2Test.class,
 		ScrollPaneScrollBarsTest.class,
 		ScrollPaneTest.class,
+		ScrollPaneTextAreaTest.class,
+		ScrollPaneWithDynamicScrolling.class,
 		SelectTest.class,
+		SensorTest.class,
 		ShaderCollectionTest.class,
 		ShaderMultitextureTest.class,
 		ShaderTest.class,
@@ -219,6 +225,7 @@ public class GdxTests {
 		SpriteBatchTest.class,
 		SpriteCacheOffsetTest.class,
 		SpriteCacheTest.class,
+		StageDebugTest.class,
 		StagePerformanceTest.class,
 		StageTest.class,
 		SuperKoalio.class,
@@ -238,6 +245,7 @@ public class GdxTests {
 		TideMapDirectLoaderTest.class,
 		TileTest.class,
 		TiledMapAssetManagerTest.class,
+		TiledMapGroupLayerTest.class,
 		TiledMapAtlasAssetManagerTest.class,
 		TiledMapDirectLoaderTest.class,
 		TiledMapModifiedExternalTilesetTest.class,
